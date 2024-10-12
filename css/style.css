@@ -43,6 +43,8 @@
   }
 }
 .popup__body {
+  display: flex;
+  flex-direction: column;
   position: relative;
   z-index: 2;
   text-align: center;
@@ -124,6 +126,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  justify-content: center;
   padding: 11px 54px;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
