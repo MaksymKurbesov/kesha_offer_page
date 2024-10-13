@@ -168,11 +168,13 @@ function initActions() {
 			console.warn('Confetti function is not available');
 		}
 
-		if (popupText) popupText.textContent = 'You got a $1000!';
-		if (popupBtn) popupBtn.style.display = 'block';
-
 		const prizeElement = scratchCard.querySelector('.scratch-card-prize');
 		if (prizeElement) prizeElement.classList.add('animate');
+
+		const prizeText = prizeElement.querySelector("p");
+
+		if (popupText) popupText.textContent = `You got a ${prizeText.textContent}`;
+		if (popupBtn) popupBtn.style.display = 'block';
 
 		if (scratchCardCoverContainer) {
 			scratchCardCoverContainer.addEventListener('transitionend', () => {
@@ -193,7 +195,21 @@ function loadConfetti() {
 	});
 }
 
+function getRandomNumber() {
+	return Math.floor(Math.random() * 1001);
+}
+
 window.onload = async () => {
+	const scratchPrizeEl = document.querySelectorAll('.scratch-card-prize');
+	const scratchPrizeImgEl = document.querySelectorAll('.scratch-card-prize img');
+	const PRIZES = [getRandomNumber(), getRandomNumber(), getRandomNumber()];
+
+	scratchPrizeEl.forEach((item, index) => {
+		const pElement = document.createElement("p");
+		pElement.innerHTML = `$${PRIZES[index]}`
+		item.insertBefore(pElement, scratchPrizeImgEl[index]);
+	})
+
 	popupOpen()
 	try {
 		await loadConfetti();
